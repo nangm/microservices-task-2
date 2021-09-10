@@ -35,7 +35,7 @@ namespace BookingService.Controllers
         // GET: api/bookingItems/5
         [HttpGet("{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
-        public async Task<ActionResult<bookingDTO>> ViewbookingItem(long id)
+        public async Task<ActionResult<bookingDTO>> ViewbookingItem(int id)
         {
             var bookingItem = await _context.bookingItems.FindAsync(id);
 
@@ -50,7 +50,7 @@ namespace BookingService.Controllers
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         [Consumes(MediaTypeNames.Application.Json)]
-        public async Task<IActionResult> PutbookingItem(long id, bookingDTO bookingDTO)
+        public async Task<IActionResult> PutbookingItem(int id, bookingDTO bookingDTO)
         {
             if (id != bookingDTO.Id)
             {
@@ -62,7 +62,7 @@ namespace BookingService.Controllers
             {
                 return NotFound();
             }
-
+            bookingItem.Id = bookingDTO.Id;
             bookingItem.Date = bookingDTO.Date;
             bookingItem.Time = bookingDTO.Time;
             bookingItem.Venue = bookingDTO.Venue;
@@ -109,7 +109,7 @@ namespace BookingService.Controllers
 
         // DELETE: api/bookingItems/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletebookingItem(long id)
+        public async Task<IActionResult> DeletebookingItem(int id)
         {
             var todoItem = await _context.bookingItems.FindAsync(id);
             if (todoItem == null)
@@ -130,7 +130,7 @@ namespace BookingService.Controllers
         private static bookingDTO ItemToDTO(bookingDTO bookingItem) =>
         new bookingDTO
         {
-            //Id = bookingItem.Id,
+            Id = bookingItem.Id,
             Date = bookingItem.Date,
             Time = bookingItem.Time,
             Venue = bookingItem.Venue,
